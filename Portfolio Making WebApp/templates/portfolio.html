@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static\css\style.css">
+</head>
+
+<body>
+<div class="container-fluid d-flex align-items-center vh-100 bg-primary text-light">
+    <div class="row w-100">
+        <!-- Left Section -->
+        <div class="col-md-6 text-left">
+            <h1 class="display-1 font-weight-bold">{{name}} <span class="d-block">{{lastname}}</span></h1>
+            <p class="lead mt-4">
+                {{about}}
+            </p>
+            <div class="social-icons mt-4">
+                <a href="#" class="text-light"><i class="fab fa-youtube fa-2x"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-github fa-2x"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+            
+        </div>
+        <!-- Right Section -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="profile-card text-center p-4">
+                <img src="{{ url_for('static', filename='image/' +img) }}" alt="Profile" class="rounded-circle img-fluid mb-3" style="width: 150px;">
+
+                <h3>Profile</h3>
+                <ul class="nav nav-pills justify-content-center mt-3" id="profileTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="study-tab" data-toggle="pill" href="#study" role="tab">Study</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="skills-tab" data-toggle="pill" href="#skills" role="tab">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="pill" href="#contact" role="tab">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-4" id="profileTabContent">
+                    <div class="tab-pane fade show active" id="study" role="tabpanel">
+                        <p><strong>School:</strong> {{school}}</p>
+                        <p><strong>College:</strong> {{college}}</p>
+                    </div>
+                    <div class="tab-pane fade" id="skills" role="tabpanel">
+                        <p>{{skill1}}, {{skill2}}, {{skill3}}, {{skill4}}</p>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel">
+                        <p>Email: {{email}}</p>
+                        <p>Phone: {{phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
