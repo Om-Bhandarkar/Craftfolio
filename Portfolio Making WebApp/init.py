@@ -1,42 +1,83 @@
-from flask import Flask,render_template,request
-import uuid,os
+from flask import Flask, render_template, request, flash
+import uuid, os
+
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # Required for flash messages
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    try:
+        return render_template("index.html")
+    except Exception as e:
+        print(f"Error rendering homepage: {e}")
+        flash("An error occurred while loading the homepage.")
+        return render_template("error.html"), 500
 
 @app.route('/templates')
 def design():
-    return render_template("designs.html")
+    try:
+        return render_template("designs.html")
+    except Exception as e:
+        print(f"Error rendering designs page: {e}")
+        flash("An error occurred while loading the templates page.")
+        return render_template("error.html"), 500
 
 @app.route("/form")
 def form():
-    return render_template("form.html")
+    try:
+        return render_template("form.html")
+    except Exception as e:
+        print(f"Error rendering form page: {e}")
+        flash("An error occurred while loading the form page.")
+        return render_template("error.html"), 500
 
-@app.route('/login', methods=["POST","GET"])
+@app.route('/login', methods=["POST", "GET"])
 def upload():
     if request.method == 'POST':
-        data = {
-            "name" : request.form.get("firstname"),
-            "lastname" : request.form.get("lastname"),
-            "school" : request.form.get("school"),
-            "college" : request.form.get("college"),
-            "phone" : request.form.get("phone"),
-            "email" : request.form.get("email"),
-            "skill1" : request.form.get("skill1"),
-            "skill2" : request.form.get("skill2"),
-            "skill3" : request.form.get("skill3"),
-            "skill4" : request.form.get("skill4"),
-            "about" : request.form.get("about")
-        }
-        key = uuid.uuid1()
+        try:
+            data = {
+                "name": request.form.get("firstname"),
+                "lastname": request.form.get("lastname"),
+                "school": request.form.get("school"),
+                "college": request.form.get("college"),
+                "phone": request.form.get("phone"),
+                "email": request.form.get("email"),
+                "skill1": request.form.get("skill1"),
+                "skill2": request.form.get("skill2"),
+                "skill3": request.form.get("skill3"),
+                "skill4": request.form.get("skill4"),
+                "about": request.form.get("about")
+            }
+            key = uuid.uuid1()
             # Image Uploading Method
-        img = request.files['dp']
-        img.save(f"static/image/{img.filename}")
-        newImage = f"{key}{img.filename}"
-        os.rename(f"static/image/{img.filename}",f"static/image/{newImage}")
-    return render_template("portfolio.html",**data,img=newImage)
+            img = request.files['dp']
+            img_path = f"Portfolio Making WebApp/static/image/{img.filename}"
+            img.save(img_path)
+            
+            # Renaming the image
+            newImage = f"{key}_{img.filename}"
+            new_img_path = f"Portfolio Making WebApp/static/image/{newImage}"
+            os.rename(img_path, new_img_path)
+            
+            return render_template("portfolio.html", **data, img=newImage)
+        except FileNotFoundError as fe:
+            print(f"File error: {fe}")
+            flash("An error occurred while uploading the image. Please try again.")
+            return render_template("form.html"), 400
+        except Exception as e:
+            print(f"Error in upload route: {e}")
+            flash("An unexpected error occurred. Please try again later.")
+            return render_template("form.html"), 500
+
+    try:
+        return render_template("login.html")
+    except Exception as e:
+        print(f"Error rendering login page: {e}")
+        flash("An error occurred while loading the login page.")
+        return render_template("error.html"), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    try:
+        app.run(debug=True)
+    except Exception as e:
+        print(f"Critical error starting the application: {e}")

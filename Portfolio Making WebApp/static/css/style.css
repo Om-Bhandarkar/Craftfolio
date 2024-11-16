@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #28004e;
+    background-color: #50054f;
     color: #002850;
 }
 
@@ -10,16 +10,30 @@ body {
 }
 
 .profile-card {
-    background-color: #093061;
-    border-radius: 10px;
-    padding: 30px;
-    color: #c5c6c7;
-    width: 80%;
+    max-width: 90%; /* Allow the card to shrink or grow */
+    width: 100%; /* Full width by default */
+    margin: 0 auto; /* Center the card */
+    border: 1px solid #ddd; /* Optional: border for better visibility */
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    /* background-color: #8704af; */
 }
 
+@media (min-width: 576px) {
+    .profile-card {
+        max-width: 540px; /* Limit card width on larger screens */
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto; /* Ensures image scales responsively */
+}
+
+
 .nav-pills .nav-link.active {
-    background-color: #66fcf1;
-    color: #4d0698;
+    background-color: #000000;
+    color: #ffffff;
     border-radius: 20px;
 }
 
@@ -32,3 +46,35 @@ body {
     height: 50px;
 }
 
+/* Left side CSS */
+
+.custom-profile {
+    height: 100vh; /* Full viewport height to ensure vertical centering */
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    text-align: center; /* Ensures text alignment in the center */
+}
+
+.custom-profile h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.custom-profile p {
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+
+.social-icons a {
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #007bff;
+}
+
+a{
+    color: #000000;
+}
