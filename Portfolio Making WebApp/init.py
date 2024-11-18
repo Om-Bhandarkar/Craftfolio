@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash
 import uuid, os
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'  # Required for flash messages
+app.secret_key = 'supersecretkey'  
 
 @app.route('/')
 def home():
@@ -46,7 +46,9 @@ def upload():
                 "skill2": request.form.get("skill2"),
                 "skill3": request.form.get("skill3"),
                 "skill4": request.form.get("skill4"),
-                "about": request.form.get("about")
+                "about": request.form.get("about"),
+                "github": request.form.get("github"),
+                "linkedin": request.form.get("linkedin")
             }
             key = uuid.uuid1()
             # Image Uploading Method
